@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'application'
 }
 
 group 'org.example'
@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
     implementation project(':Core')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
@@ -18,3 +19,5 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+mainClassName = "cr.ac.tec.datos.invaders.client.Main"

@@ -2,16 +2,21 @@ package cr.ac.tec.datos.invaders.client.communications;
 
 import java.io.*;
 import java.net.Socket;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import cr.ac.tec.datos.invaders.core.MessageReader;
+import cr.ac.tec.datos.invaders.core.messages.Message;
 
 public class Sender {
-    public static void sendData(int port, String host, String message) throws IOException {
+    private static ObjectMapper mapper = new ObjectMapper();
+
+    public static void sendData(int port, String host, Message message) throws IOException {
         try (
                 var outgoing = new Socket(host, port);
                 var writer = new OutputStreamWriter(outgoing.getOutputStream());
                 var reader = new InputStreamReader(outgoing.getInputStream())
         ) {
-            writer.write(message);
+            writer.write(mapper.writeValueAsString(message));
             writer.flush();
             outgoing.shutdownOutput();
 
